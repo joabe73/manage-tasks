@@ -3,10 +3,10 @@
 >**About this app**:
 On this app, you can create your list of tasks and manage it.  
 
-![profile screen](./src/assets/profile.png)
-![ongoing tasks](./src/assets/task_list.png)
-![task history screen](./src/assets/task_history.png)
-![creating a new task](./src/assets/create_task.png)
+<img src="./src/assets/profile.png" alt="profile screen" width="140" height="300" />
+<img src="./src/assets/task_list.png" alt="ongoing tasks" width="140" height="300" />
+<img src="./src/assets/task_history.png" alt="task history screen" width="140" height="300" />
+<img src="./src/assets/create_task.png" alt="creating a new task" width="140" height="300" />
 
 ## Running the app, Step 1: Start the Metro Server
 
