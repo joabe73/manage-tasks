@@ -3,6 +3,11 @@
 >**About this app**:
 On this app, you can create your list of tasks and manage it.  
 
+![profile screen](./src/assets/profile.png)
+![ongoing tasks](./src/assets/task_list.png)
+![task history screen](./src/assets/task_history.png)
+![creating a new task](./src/assets/create_task.png)
+
 ## Running the app, Step 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
