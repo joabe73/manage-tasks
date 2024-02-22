@@ -1,13 +1,13 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {FlatList, View, TextInput, StyleSheet, Task} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {TextInput} from 'react-native';
+import {TasksList} from './TasksList.view'
 import { useTranslation } from 'react-i18next';
-import {useGlobalSelector} from '../contexts/GlobalContext';
-import {TaskView} from '../components/TaskView';
-import {useGlobalActorRef} from '../contexts/GlobalContext';
-import { colors, handleAlert } from '../utils'
+import {useGlobalSelector} from '../../contexts/GlobalContext';
+import {useGlobalActorRef} from '../../contexts/GlobalContext';
+import { handleAlert } from '../../utils'
+import { Task } from '../../models/Task';
 
-export const TasksList = () => {
+const TasksListViewModel = () => {
   const { t } = useTranslation();
   const inputRef = useRef<TextInput | null>(null);
   const [search, setSearch] = useState('');
@@ -55,52 +55,17 @@ export const TasksList = () => {
     });
   };
 
-  return (
-    <View>
-      <View style={styles.inputArea}>
-        <TextInput
-          ref={inputRef}
-          value={search}
-          onChangeText={setSearch}
-          style={styles.input} 
-          placeholder={t('search')} />
-        <Icon name={`search`} color={colors.blue001} size={20} />
-      </View>
-      <FlatList
-        data={(filterdList as unknown as undefined) || uncompletedTasks}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => 
-          <TaskView 
-            handleItem={() => handleItem(item)}
-            handleCheck={(task) => handleCheckTask(task)}
-            task={item} 
-          />
-        }
-      />
-    </View>
-  );
+  const controllers = {
+    inputRef,
+    search, 
+    filterdList, 
+    uncompletedTasks,
+    setSearch, 
+    handleItem,
+    handleCheckTask
+  };
+
+  return <TasksList controllers={controllers} />
 };
 
-const styles = StyleSheet.create({
-  inputArea: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: colors.white,
-    flexDirection: 'row',
-    marginHorizontal: 4,
-    borderRadius: 6,
-    marginBottom: 10,
-    shadowColor: colors.blue001,
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-  },
-  input: {
-    flex: 1,
-    height: 30,
-  }
-});
-
+export default TasksListViewModel;

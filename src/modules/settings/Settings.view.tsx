@@ -1,18 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {languages, colors, mockData} from '../utils'
-import ProfileView from '../components/ProfileView';
+import {languages, colors, mockData} from '../../utils'
+import ProfileView from '../../components/ProfileView';
 
-export const Settings = () => {
-  const { t, i18n } = useTranslation();
-  const [selected, setSelected] = useState(i18n.language)
-
-  const handleChangeLanguage = (code: string): void => {
-    setSelected(`${code}`);
-    i18n.changeLanguage(code);
-  };
+export const Settings = ({ controllers }: any) => {
+  const { t } = useTranslation();
+  const { selected, handleChangeLanguage } = controllers;
 
   const handleLanguages = (selected: string) => {
     return (

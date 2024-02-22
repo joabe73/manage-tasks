@@ -1,12 +1,12 @@
 import React from 'react';
-import {FlatList} from 'react-native';
-import {useGlobalSelector} from '../contexts/GlobalContext';
 import { useTranslation } from 'react-i18next';
-import {TaskView} from '../components/TaskView';
-import {useGlobalActorRef} from '../contexts/GlobalContext';
-import { handleAlert } from '../utils'
 
-export const History = () => {
+import {useGlobalSelector} from '../../contexts/GlobalContext';
+import {useGlobalActorRef} from '../../contexts/GlobalContext';
+import { handleAlert } from '../../utils';
+import { History } from './History.view';
+
+const HistoryEditorModel = () => {
   const { t } = useTranslation();
   const {send} = useGlobalActorRef();
   let currentTasks = useGlobalSelector(state => state.context.currentTasks);
@@ -32,16 +32,12 @@ export const History = () => {
     });
   };
 
-  return (
-    <FlatList
-      data={completedTasks}
-      keyExtractor={item => item.id}
-      renderItem={({item}) => 
-        <TaskView 
-          handleCheck={(task, remove) => handleCheckTask(task, remove)} 
-          task={item} 
-          />
-        }
-    />
-  );
+  const controllers = {
+    completedTasks, 
+    handleCheckTask
+  };
+
+  return <History controllers={controllers} />;
 };
+
+export default HistoryEditorModel;

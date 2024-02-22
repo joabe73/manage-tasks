@@ -3,10 +3,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTranslation } from 'react-i18next';
-import {History} from '../screens/History';
-import {TaskEditor} from '../screens/TaskEditor';
-import {TasksList} from '../screens/TasksList';
-import {Settings} from '../screens/Settings';
+import History from '../modules/history/History.vModel';
+import TaskEditor from '../modules/task_editor/TaskEditor.vModel';
+import TasksList from '../modules/tasks_list/TasksList.vModel';
+import Settings from '../modules/settings/Settings.vModel';
 import {useGlobalActorRef} from '../contexts/GlobalContext';
 import ButtonView from '../components/ButtonView';
 

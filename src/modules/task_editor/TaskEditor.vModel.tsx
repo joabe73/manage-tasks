@@ -1,13 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {View, TextInput, StyleSheet, Text} from 'react-native';
-import { useTranslation } from 'react-i18next';
-import {useGlobalActorRef, useGlobalSelector} from '../contexts/GlobalContext';
-import {Task} from '../models/Task';
-import ButtonView from '../components/ButtonView';
-import {colors} from '../utils'
+import {useGlobalActorRef, useGlobalSelector} from '../../contexts/GlobalContext';
+import {Task} from '../../models/Task';
+import {TaskEditor} from './TaskEditor.view';
 
-export const TaskEditor = ({route, navigation}: any) => {
-  const { t } = useTranslation();
+const TaskEditorViewModel = ({route, navigation}: any) => {
   const payload = route.params;
   const id = payload?.task?.id || undefined
   const {send} = useGlobalActorRef();
@@ -72,58 +68,16 @@ export const TaskEditor = ({route, navigation}: any) => {
     send({type: 'RESET_SELECTED'});
     send({type: 'CANCEL'});
   };
+  const controllers = {
+    currentTask,
+    fieldError,
+    handleCancel,
+    handleEditTitle,
+    handleEditDescription,
+    handleSave
+  };
 
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        placeholder={t('title')}
-        value={currentTask?.title}
-        maxLength={40}
-        onChangeText={handleEditTitle}
-      />
-      {fieldError && <Text style={styles.textError}>You can't save without a title.</Text>}
-      <View style={styles.description}>
-        <TextInput
-          style={[styles.textInput, styles.description]}
-          multiline
-          placeholder={t('description')}
-          value={currentTask?.description ?? ''}
-          onChangeText={handleEditDescription}
-        />
-      </View>
-      <View>
-        <ButtonView mgBottom={10} label={t('save')}  press={handleSave} />
-        <ButtonView bgColor={colors.blue002} label={t('cancel')} press={handleCancel} />
-      </View>
-    </View>
-  );
+  return <TaskEditor controllers={controllers} />;
 };
 
-const styles = StyleSheet.create({
-  container: {
-    rowGap: 15,
-    height: '75%',
-    padding: 4,
-  },
-  textError: {
-    textAlign: 'center',
-    fontSize: 14,
-    color: colors.red001
-  },
-  textInput: {
-    backgroundColor: 'white',
-    elevation: 5,
-    shadowColor: colors.blue001,
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-    padding: 2,
-  },
-  description: {
-    flex: 2,
-  },
-});
+export default TaskEditorViewModel;
